@@ -16,11 +16,13 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    '698e-176-226-80-228.ngrok-free.app'
+    '181.215.68.64/',
+    'de31-176-226-80-228.ngrok-free.app'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://698e-176-226-80-228.ngrok-free.app',
+    'https://de31-176-226-80-228.ngrok-free.app',
+    'https://181.215.68.64/',
 ]
 
 REST_FRAMEWORK = {
