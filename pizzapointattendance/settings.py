@@ -23,6 +23,7 @@ ALLOWED_HOSTS = [
 CSRF_TRUSTED_ORIGINS = [
     'https://de31-176-226-80-228.ngrok-free.app',
     'https://181.215.68.64/',
+    'http://181.215.68.64/',
 ]
 
 REST_FRAMEWORK = {
