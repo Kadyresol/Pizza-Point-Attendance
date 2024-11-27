@@ -16,5 +16,5 @@ urlpatterns = [
     path('api/login/', obtain_auth_token, name='api_login'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('employee/pay/', views.MoveRecordsToArchiveView.as_view(), name='move_records_to_archive'),
+    path('api/employee/pay/', views.MoveRecordsToArchiveView.as_view(), name='move_records_to_archive'),
 ]

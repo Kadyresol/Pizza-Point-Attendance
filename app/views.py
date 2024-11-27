@@ -62,4 +62,5 @@ class MoveRecordsToArchiveView(APIView):
             )
         ArchiveRecord.objects.bulk_create(archive_records)
         records.delete()
-        return Response({"message": "Records moved to archive successfully."}, status=status.HTTP_200_OK)
+        serializer = EmployeeSerializer(employee)
+        return Response({"data": serializer.data, "message": "Records moved to archive successfully."}, status=status.HTTP_200_OK)
