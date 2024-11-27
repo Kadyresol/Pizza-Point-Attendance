@@ -6,18 +6,20 @@ class RecordSerializer(serializers.ModelSerializer):
         model = Record
         fields = ['id', 'date', 'duration', 'price']
 
+
 class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
         fields = ['id', 'name', 'surname', 'phone_number', 'hourly_earning', 'status', 'pay_price']
 
+
 class EmployeeDetailSerializer(serializers.ModelSerializer):
 
-    records = RecordSerializer(many=True, read_only=True)
+    #records = RecordSerializer(many=True, read_only=True)
 
     class Meta:
         model = Employee
-        fields = ['id', 'name', 'surname', 'phone_number', 'hourly_earning', 'pay_price', 'status', 'records']
+        fields = ['id', 'name', 'surname', 'phone_number', 'hourly_earning', 'pay_price', 'status']
 
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=150)

@@ -1,7 +1,5 @@
 from decimal import Decimal
 from django.db import models
-from django.utils.timezone import now
-from django.db.models.signals import pre_save
 from django.db.models.signals import post_save
 from django.db.models import Sum
 from django.dispatch import receiver
@@ -16,7 +14,7 @@ class Employee(models.Model):
     surname = models.CharField(max_length=100, blank=False)
     phone_number = models.CharField(max_length=100, blank=False)
     hourly_earning = models.DecimalField(decimal_places=2, max_digits=10, blank=False)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='inactive')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES,)
     pay_price = models.DecimalField(decimal_places=2, max_digits=10, default=0.00)
     
 
@@ -38,21 +36,6 @@ class Record(models.Model):
             hours_worked = Decimal(self.duration.total_seconds()) / Decimal(3600)
             self.price = round(hours_worked * self.employee.hourly_earning, 2)
         super().save(*args, **kwargs)
-
-@receiver(pre_save, sender=Employee)
-def create_or_update_record(sender, instance, **kwargs):
-    if instance.pk:
-        previous_status = Employee.objects.get(pk=instance.pk).status
-        if previous_status == 'inactive' and instance.status == 'active':
-            Record.objects.create(
-                employee=instance,
-                start_record_time=now()
-            )
-        elif previous_status == 'active' and instance.status == 'inactive':
-            record = Record.objects.filter(employee=instance, end_record_time__isnull=True).last()
-            if record:
-                record.end_record_time = now()
-                record.save()
 
     def __str__(self):
         return f"{self.employee.name} - {self.date}"
