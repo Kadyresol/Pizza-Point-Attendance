@@ -48,7 +48,8 @@ class MoveRecordsToArchiveView(APIView):
         employee = get_object_or_404(Employee, pk=employee_id)
         records = Record.objects.filter(employee=employee)
         if not records.exists():
-            return Response({"message": "No records found for this employee."}, status=status.HTTP_200_OK)
+            serializer = EmployeeSerializer(employee)
+            return Response({"data": serializer.data, "message": "No records found for this employee."}, status=status.HTTP_200_OK)
         archive_records = []
         for record in records:
             archive_records.append(
