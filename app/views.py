@@ -8,6 +8,7 @@ from rest_framework.decorators import permission_classes
 from .serializers import EmployeeSerializer, EmployeeDetailSerializer
 from rest_framework.permissions import IsAuthenticated
 
+
 @permission_classes([IsAuthenticated])
 class EmployeeViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
@@ -26,12 +27,25 @@ class EmployeeViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
         serializer = self.get_serializer(employee)
-        return Response(serializer.data)
+        return Response({"data": serializer.data})
+
     def destroy(self, request, *args, **kwargs):
         return Response(
             {"detail": "You can not delete"},
             status=status.HTTP_405_METHOD_NOT_ALLOWED
         )
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            employee = serializer.save()
+            return Response(
+                {"detail": "Employee created successfully.", "data": serializer.data},
+                status=status.HTTP_201_CREATED
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 @permission_classes([IsAuthenticated])
 class MoveRecordsToArchiveView(APIView):

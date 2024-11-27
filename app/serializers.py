@@ -9,7 +9,7 @@ class RecordSerializer(serializers.ModelSerializer):
 class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
-        fields = ['id', 'name', 'surname', 'phone_number', 'hourly_earning']
+        fields = ['id', 'name', 'surname', 'phone_number', 'hourly_earning', 'status', 'pay_price']
 
 class EmployeeDetailSerializer(serializers.ModelSerializer):
 
@@ -18,3 +18,7 @@ class EmployeeDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
         fields = ['id', 'name', 'surname', 'phone_number', 'hourly_earning', 'pay_price', 'status', 'records']
+
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField(max_length=150)
+    password = serializers.CharField(write_only=True, max_length=128)
