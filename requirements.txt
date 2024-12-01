@@ -1,4 +1,5 @@
 django
 djangorestframework
+django-rest-authtoken
 djangorestframework-simplejwt
 django-cors-headers
