@@ -1,3 +1,4 @@
 db.sqlite3
 app/__pycache__
 pizzapointattendance/__pycache__
+/app/migrations/__pycache__
